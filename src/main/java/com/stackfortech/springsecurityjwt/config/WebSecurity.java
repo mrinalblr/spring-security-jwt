@@ -16,6 +16,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import static com.stackfortech.springsecurityjwt.config.SecurityConstants.H2_CONSOLE;
 import static com.stackfortech.springsecurityjwt.config.SecurityConstants.SIGN_UP_URL;
 
 @EnableWebSecurity
@@ -37,13 +38,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(SIGN_UP_URL).permitAll()
+                .antMatchers(H2_CONSOLE,SIGN_UP_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(customExceptionHandlerFilter, BasicAuthenticationFilter.class)
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationfilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.headers().frameOptions().disable();
 
     }
 

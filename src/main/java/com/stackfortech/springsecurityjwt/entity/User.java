@@ -1,5 +1,9 @@
 package com.stackfortech.springsecurityjwt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +17,7 @@ public class User {
     @Column(name ="USERNAME")
     private String username;
     @Column(name = "PASSWORD")
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "ROLES")
