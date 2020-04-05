@@ -46,7 +46,6 @@ public class UserController {
         return new ResponseEntity<UserResponse>(response,HttpStatus.OK);
     }
     @GetMapping("/searchBy")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<UserResponse> getUsers(@RequestParam String username){
         User user =  userRepository.findByUsername(username);
         UserResponse response = new UserResponse();
